@@ -10,7 +10,8 @@ export interface LoginResponse {
   token: string;
   refreshToken?: string;
   user: User;
-  tenant: Tenant;
+  tenantId: number;
+  tenant?: Tenant; // Opcional, puede venir del backend o construirse desde tenantId
 }
 
 export interface User {

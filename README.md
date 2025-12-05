@@ -120,6 +120,10 @@ El proyecto espera los siguientes endpoints del backend REST API (compatible con
 
 ## 🚀 Despliegue en VPS
 
+> **📖 Documentación completa:** Ver [VPS-SETUP.md](./VPS-SETUP.md) para guía detallada sobre cómo mantener el servicio activo permanentemente.
+
+> **⚡ Despliegue rápido:** Usa el script `./deploy.sh usuario@tu-vps` para automatizar el proceso.
+
 ### Preparación Local
 
 1. **Configurar variables de entorno para producción:**

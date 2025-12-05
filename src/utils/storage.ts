@@ -33,11 +33,23 @@ export const storage = {
   },
 
   getUser: (): any | null => {
-    const user = storageAPI.getItem(USER_KEY);
-    return user ? JSON.parse(user) : null;
+    try {
+      const user = storageAPI.getItem(USER_KEY);
+      if (!user || user === 'undefined' || user === 'null') {
+        return null;
+      }
+      return JSON.parse(user);
+    } catch (error) {
+      console.error('Error parsing user from storage:', error);
+      return null;
+    }
   },
 
   setUser: (user: any): void => {
+    if (user === null || user === undefined) {
+      storageAPI.removeItem(USER_KEY);
+      return;
+    }
     storageAPI.setItem(USER_KEY, JSON.stringify(user));
   },
 
@@ -46,11 +58,23 @@ export const storage = {
   },
 
   getTenant: (): any | null => {
-    const tenant = storageAPI.getItem(TENANT_KEY);
-    return tenant ? JSON.parse(tenant) : null;
+    try {
+      const tenant = storageAPI.getItem(TENANT_KEY);
+      if (!tenant || tenant === 'undefined' || tenant === 'null') {
+        return null;
+      }
+      return JSON.parse(tenant);
+    } catch (error) {
+      console.error('Error parsing tenant from storage:', error);
+      return null;
+    }
   },
 
   setTenant: (tenant: any): void => {
+    if (tenant === null || tenant === undefined) {
+      storageAPI.removeItem(TENANT_KEY);
+      return;
+    }
     storageAPI.setItem(TENANT_KEY, JSON.stringify(tenant));
   },
 

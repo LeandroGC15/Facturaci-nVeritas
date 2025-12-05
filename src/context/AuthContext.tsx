@@ -36,21 +36,36 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (credentials: LoginRequest) => {
     try {
+      console.log('🔵 [AuthContext] Iniciando login...');
       const response: LoginResponse = await apiClient.post(endpoints.auth.login, {
         email: credentials.email,
         password: credentials.password,
       });
 
-      // Usar el tenant de la respuesta
-      const tenant: Tenant = response.tenant;
+      console.log('✅ [AuthContext] Respuesta del login:', response);
 
+      // El backend devuelve tenantId, crear un objeto tenant mínimo
+      // Si la respuesta tiene tenant completo, usarlo; si no, crear uno mínimo
+      if (!response.tenantId) {
+        throw new Error('tenantId no recibido en la respuesta del servidor');
+      }
+
+      const tenant: Tenant = response.tenant || {
+        id: response.tenantId,
+        name: `Tenant ${response.tenantId}`, // Nombre temporal, se puede obtener después si es necesario
+      };
+
+      console.log('💾 [AuthContext] Guardando datos en storage...');
       storage.setToken(response.token);
       storage.setUser(response.user);
       storage.setTenant(tenant);
 
+      console.log('👤 [AuthContext] Actualizando estado...');
       setUser(response.user);
       setTenant(tenant);
+      console.log('✅ [AuthContext] Login completado exitosamente');
     } catch (error: any) {
+      console.error('❌ [AuthContext] Error en login:', error);
       throw error;
     }
   };
