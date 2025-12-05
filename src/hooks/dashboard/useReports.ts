@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { apiClient } from '@/api/client';
 import { endpoints } from '@/api/endpoints';
-import { Report, ReportFilters, ReportData } from '@/types/dashboard';
+import { Report, ReportFilters } from '@/types/dashboard';
 
 export const useReports = () => {
   const [report, setReport] = useState<Report | null>(null);

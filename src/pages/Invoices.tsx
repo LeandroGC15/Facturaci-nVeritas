@@ -97,8 +97,6 @@ export const Invoices: React.FC = () => {
     }
   };
 
-  const total = cartItems.reduce((sum, item) => sum + item.subtotal, 0);
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">

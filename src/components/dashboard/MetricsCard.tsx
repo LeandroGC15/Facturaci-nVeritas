@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from '@/components/common/Card/Card';
-import { formatters } from '@/utils/formatters';
 
 interface MetricsCardProps {
   title: string;

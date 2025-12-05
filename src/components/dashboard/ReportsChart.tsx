@@ -23,12 +23,43 @@ export const ReportsChart: React.FC<ReportsChartProps> = ({
   data,
   type = 'line',
 }) => {
-  const ChartComponent = type === 'line' ? LineChart : BarChart;
-  const DataComponent = type === 'line' ? Line : Bar;
+  if (type === 'line') {
+    return (
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="date"
+            tickFormatter={(value) => formatters.date(value, 'dd/MM')}
+          />
+          <YAxis />
+          <Tooltip
+            formatter={(value: number) => formatters.currency(value)}
+            labelFormatter={(label) => formatters.date(label, 'dd/MM/yyyy')}
+          />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#0ea5e9"
+            fill="#0ea5e9"
+            name="Total"
+          />
+          <Line
+            type="monotone"
+            dataKey="count"
+            stroke="#10b981"
+            fill="#10b981"
+            name="Cantidad"
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    );
+  }
 
   return (
     <ResponsiveContainer width="100%" height={400}>
-      <ChartComponent data={data}>
+      <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="date"
@@ -40,21 +71,17 @@ export const ReportsChart: React.FC<ReportsChartProps> = ({
           labelFormatter={(label) => formatters.date(label, 'dd/MM/yyyy')}
         />
         <Legend />
-        <DataComponent
-          type="monotone"
+        <Bar
           dataKey="value"
-          stroke="#0ea5e9"
           fill="#0ea5e9"
           name="Total"
         />
-        <DataComponent
-          type="monotone"
+        <Bar
           dataKey="count"
-          stroke="#10b981"
           fill="#10b981"
           name="Cantidad"
         />
-      </ChartComponent>
+      </BarChart>
     </ResponsiveContainer>
   );
 };

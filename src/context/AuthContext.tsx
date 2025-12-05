@@ -41,18 +41,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         password: credentials.password,
       });
 
-      // Obtener información del tenant desde el backend
-      // Por ahora usamos el tenantId de la respuesta
-      // TODO: Obtener información completa del tenant desde el backend
-      const tenant: Tenant = {
-        id: response.tenantId,
-        name: `Tenant ${response.tenantId}`,
-        settings: {
-          currency: 'USD',
-          timezone: 'America/Lima',
-          language: 'es',
-        },
-      };
+      // Usar el tenant de la respuesta
+      const tenant: Tenant = response.tenant;
 
       storage.setToken(response.token);
       storage.setUser(response.user);

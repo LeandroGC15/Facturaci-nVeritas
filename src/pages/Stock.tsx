@@ -10,7 +10,7 @@ import { StockItem, CreateStockItem } from '@/types/stock';
 import { StockItemFormData } from '@/utils/validators';
 
 export const Stock: React.FC = () => {
-  const { items, isLoading, createItem, updateItem, deleteItem, fetchStock } = useStock();
+  const { items, isLoading, createItem, updateItem, deleteItem } = useStock();
   const [showForm, setShowForm] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [editingItem, setEditingItem] = useState<StockItem | undefined>(undefined);
