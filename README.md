@@ -1,6 +1,6 @@
 # Veritas Front - Sistema de Facturación Multi-tenant
 
-Proyecto frontend desarrollado con React 19, TypeScript, Tailwind CSS y Vite. Sistema de facturación multi-tenant que consume un backend Spring Boot.
+Proyecto frontend desarrollado con React 19, TypeScript, Tailwind CSS y Vite. Sistema de facturación multi-tenant que consume un backend REST API (compatible con cualquier implementación: Spring Boot, Go, Node.js, etc.).
 
 ## 🚀 Características
 
@@ -17,7 +17,7 @@ Proyecto frontend desarrollado con React 19, TypeScript, Tailwind CSS y Vite. Si
 
 - Node.js 18+ 
 - npm o yarn
-- Backend Spring Boot corriendo en `http://localhost:8080`
+- Backend REST API corriendo (por defecto en `http://localhost:8080`)
 
 ## 🛠️ Instalación
 
@@ -76,7 +76,7 @@ src/
 
 ## 🔌 Integración con Backend
 
-El proyecto espera los siguientes endpoints del backend Spring Boot:
+El proyecto espera los siguientes endpoints del backend REST API (compatible con cualquier lenguaje/framework que implemente estos endpoints):
 
 ### Autenticación
 - `POST /api/auth/login` - Iniciar sesión

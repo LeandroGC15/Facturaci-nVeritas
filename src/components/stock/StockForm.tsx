@@ -29,12 +29,10 @@ export const StockForm: React.FC<StockFormProps> = ({
     defaultValues: item
       ? {
           name: item.name,
-          sku: item.sku,
+          sku: item.sku || '',
           price: item.price,
-          quantity: item.quantity,
-          unit: item.unit,
-          description: item.description,
-          category: item.category,
+          stock: item.stock,
+          description: item.description || '',
         }
       : undefined,
   });
@@ -43,12 +41,10 @@ export const StockForm: React.FC<StockFormProps> = ({
     if (item) {
       reset({
         name: item.name,
-        sku: item.sku,
+        sku: item.sku || '',
         price: item.price,
-        quantity: item.quantity,
-        unit: item.unit,
-        description: item.description,
-        category: item.category,
+        stock: item.stock,
+        description: item.description || '',
       });
     }
   }, [item, reset]);
@@ -73,7 +69,7 @@ export const StockForm: React.FC<StockFormProps> = ({
           label="SKU"
           {...register('sku')}
           error={errors.sku?.message}
-          placeholder="SKU-001"
+          placeholder="SKU-001 (opcional)"
         />
         <Input
           label="Precio"
@@ -83,26 +79,12 @@ export const StockForm: React.FC<StockFormProps> = ({
           error={errors.price?.message}
           placeholder="0.00"
         />
-        <div className="grid grid-cols-2 gap-4">
-          <Input
-            label="Cantidad"
-            type="number"
-            {...register('quantity', { valueAsNumber: true })}
-            error={errors.quantity?.message}
-            placeholder="0"
-          />
-          <Input
-            label="Unidad"
-            {...register('unit')}
-            error={errors.unit?.message}
-            placeholder="kg, litros, unidades..."
-          />
-        </div>
         <Input
-          label="Categoría"
-          {...register('category')}
-          error={errors.category?.message}
-          placeholder="Categoría (opcional)"
+          label="Stock"
+          type="number"
+          {...register('stock', { valueAsNumber: true })}
+          error={errors.stock?.message}
+          placeholder="0"
         />
         <Input
           label="Descripción"

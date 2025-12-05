@@ -1,12 +1,10 @@
 export interface StockItem {
-  id: string;
+  id: number;
   name: string;
   description?: string;
   sku: string;
   price: number;
-  quantity: number;
-  unit: string;
-  category?: string;
+  stock: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,20 +12,24 @@ export interface StockItem {
 export interface CreateStockItem {
   name: string;
   description?: string;
-  sku: string;
+  sku?: string;
   price: number;
-  quantity: number;
-  unit: string;
-  category?: string;
+  stock: number;
 }
 
 export interface UpdateStockItem extends Partial<CreateStockItem> {
-  id: string;
+  id: number;
 }
 
 export interface StockUploadResult {
-  success: number;
-  failed: number;
+  imported: number;
   errors: string[];
+}
+
+export interface StockListResponse {
+  products: StockItem[];
+  total: number;
+  page: number;
+  limit: number;
 }
 

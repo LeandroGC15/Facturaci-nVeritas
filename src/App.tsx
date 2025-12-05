@@ -8,6 +8,8 @@ import { Layout } from '@/components/layout/Layout';
 import { Login } from '@/pages/Login';
 import { Dashboard } from '@/pages/Dashboard';
 import { Stock } from '@/pages/Stock';
+import { Users } from '@/pages/Users';
+import { Invoices } from '@/pages/Invoices';
 
 function App() {
   return (
@@ -33,6 +35,26 @@ function App() {
                   <PrivateRoute>
                     <Layout>
                       <Stock />
+                    </Layout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/users"
+                element={
+                  <PrivateRoute>
+                    <Layout>
+                      <Users />
+                    </Layout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/invoices"
+                element={
+                  <PrivateRoute>
+                    <Layout>
+                      <Invoices />
                     </Layout>
                   </PrivateRoute>
                 }

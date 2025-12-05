@@ -28,7 +28,7 @@ class ApiClient {
         }
 
         if (tenant?.id) {
-          config.headers['X-Tenant-ID'] = tenant.id;
+          config.headers['X-Tenant-ID'] = tenant.id.toString();
         }
 
         return config;

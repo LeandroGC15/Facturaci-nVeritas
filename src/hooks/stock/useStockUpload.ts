@@ -14,33 +14,22 @@ export const useStockUpload = () => {
     setResult(null);
 
     try {
-      // TODO: Descomentar cuando el backend esté listo
-      // const formData = new FormData();
-      // formData.append('file', file);
-      // const data = await apiClient.post<StockUploadResult>(
-      //   endpoints.stock.upload,
-      //   formData,
-      //   {
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data',
-      //     },
-      //   }
-      // );
+      const formData = new FormData();
+      formData.append('file', file);
+      const data = await apiClient.post<StockUploadResult>(
+        endpoints.stock.upload,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
-      // Datos dummy para desarrollo sin backend
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simular delay
-      
-      // Simular procesamiento del archivo
-      const dummyResult: StockUploadResult = {
-        success: Math.floor(Math.random() * 50) + 10,
-        failed: Math.floor(Math.random() * 5),
-        errors: Math.random() > 0.7 ? ['Algunas filas tenían formato incorrecto'] : [],
-      };
-
-      setResult(dummyResult);
-      return dummyResult;
+      setResult(data);
+      return data;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Error al cargar archivo';
+      const errorMessage = err.response?.data?.error || err.response?.data?.message || 'Error al cargar archivo';
       setError(errorMessage);
       throw new Error(errorMessage);
     } finally {

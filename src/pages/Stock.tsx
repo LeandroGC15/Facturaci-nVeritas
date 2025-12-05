@@ -48,7 +48,7 @@ export const Stock: React.FC = () => {
     setShowUpload(false);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm('¿Estás seguro de eliminar este producto?')) {
       try {
         await deleteItem(id);

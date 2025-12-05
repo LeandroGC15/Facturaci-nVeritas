@@ -7,12 +7,10 @@ export const loginSchema = z.object({
 
 export const stockItemSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
-  sku: z.string().min(1, 'El SKU es requerido'),
+  sku: z.string().optional(),
   price: z.number().min(0, 'El precio debe ser mayor o igual a 0'),
-  quantity: z.number().min(0, 'La cantidad debe ser mayor o igual a 0'),
-  unit: z.string().min(1, 'La unidad es requerida'),
+  stock: z.number().min(0, 'El stock debe ser mayor o igual a 0'),
   description: z.string().optional(),
-  category: z.string().optional(),
 });
 
 export type LoginFormData = z.infer<typeof loginSchema>;

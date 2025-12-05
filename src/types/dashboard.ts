@@ -1,9 +1,8 @@
 export interface Metrics {
-  totalInvoiced: number;
+  totalProducts: number;
   totalInvoices: number;
-  averageInvoiceValue: number;
-  topProducts: TopProduct[];
-  trends: TrendData[];
+  revenue: number;
+  lowStockItems: number;
 }
 
 export interface TopProduct {
@@ -28,9 +27,8 @@ export interface Report {
 
 export interface ReportData {
   date: string;
-  invoices: number;
-  total: number;
-  products: number;
+  value: number;
+  count: number;
 }
 
 export interface ReportFilters {

@@ -36,44 +36,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (credentials: LoginRequest) => {
     try {
-      // TODO: Descomentar cuando el backend esté listo
-      // const response: LoginResponse = await apiClient.post(endpoints.auth.login, credentials);
-      
-      // Datos dummy para desarrollo sin backend
-      const dummyResponse: LoginResponse = {
-        token: 'dummy-jwt-token-' + Date.now(),
-        refreshToken: 'dummy-refresh-token-' + Date.now(),
-        user: {
-          id: '1',
-          email: credentials.email,
-          name: credentials.email.split('@')[0] || 'Usuario',
-          role: 'admin',
-        },
-        tenant: {
-          id: 'tenant-1',
-          name: credentials.tenantId || 'Mi Empresa',
-          domain: credentials.email.split('@')[1] || 'example.com',
-          settings: {
-            currency: 'USD',
-            timezone: 'America/Lima',
-            language: 'es',
-          },
+      const response: LoginResponse = await apiClient.post(endpoints.auth.login, {
+        email: credentials.email,
+        password: credentials.password,
+      });
+
+      // Obtener información del tenant desde el backend
+      // Por ahora usamos el tenantId de la respuesta
+      // TODO: Obtener información completa del tenant desde el backend
+      const tenant: Tenant = {
+        id: response.tenantId,
+        name: `Tenant ${response.tenantId}`,
+        settings: {
+          currency: 'USD',
+          timezone: 'America/Lima',
+          language: 'es',
         },
       };
 
-      // Simular delay de red
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      storage.setToken(response.token);
+      storage.setUser(response.user);
+      storage.setTenant(tenant);
 
-      storage.setToken(dummyResponse.token);
-      if (dummyResponse.refreshToken) {
-        storage.setRefreshToken(dummyResponse.refreshToken);
-      }
-      storage.setUser(dummyResponse.user);
-      storage.setTenant(dummyResponse.tenant);
-
-      setUser(dummyResponse.user);
-      setTenant(dummyResponse.tenant);
-    } catch (error) {
+      setUser(response.user);
+      setTenant(tenant);
+    } catch (error: any) {
       throw error;
     }
   };

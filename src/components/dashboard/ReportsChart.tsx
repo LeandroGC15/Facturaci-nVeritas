@@ -42,17 +42,17 @@ export const ReportsChart: React.FC<ReportsChartProps> = ({
         <Legend />
         <DataComponent
           type="monotone"
-          dataKey="total"
+          dataKey="value"
           stroke="#0ea5e9"
           fill="#0ea5e9"
-          name="Total Facturado"
+          name="Total"
         />
         <DataComponent
           type="monotone"
-          dataKey="invoices"
+          dataKey="count"
           stroke="#10b981"
           fill="#10b981"
-          name="Cantidad de Facturas"
+          name="Cantidad"
         />
       </ChartComponent>
     </ResponsiveContainer>

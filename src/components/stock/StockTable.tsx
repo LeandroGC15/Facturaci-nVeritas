@@ -6,7 +6,7 @@ import { Button } from '@/components/common/Button/Button';
 interface StockTableProps {
   items: StockItem[];
   onEdit?: (item: StockItem) => void;
-  onDelete?: (id: string) => void;
+  onDelete?: (id: number) => void;
   isLoading?: boolean;
 }
 
@@ -47,10 +47,7 @@ export const StockTable: React.FC<StockTableProps> = ({
               Precio
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Cantidad
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Categoría
+              Stock
             </th>
             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               Acciones
@@ -73,10 +70,7 @@ export const StockTable: React.FC<StockTableProps> = ({
                 {formatters.currency(item.price)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.quantity} {item.unit}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.category || '-'}
+                {item.stock}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div className="flex justify-end space-x-2">

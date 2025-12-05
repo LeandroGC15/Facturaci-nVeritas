@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 
 interface MenuItem {
   path: string;
   label: string;
   icon: React.ReactNode;
+  adminOnly?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -26,15 +28,46 @@ const menuItems: MenuItem[] = [
       </svg>
     ),
   },
+  {
+    path: '/invoices',
+    label: 'Facturación',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
+  },
+  {
+    path: '/users',
+    label: 'Usuarios',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    ),
+    adminOnly: true,
+  },
 ];
 
 export const Sidebar: React.FC = () => {
   const location = useLocation();
+  const { user } = useAuth();
+
+  const filteredMenuItems = menuItems.filter((item) => {
+    // Si el item requiere admin y el usuario no es admin, no mostrarlo
+    if (item.adminOnly) {
+      // Verificar que el usuario existe y tiene rol admin
+      if (!user || user.role !== 'admin') {
+        return false;
+      }
+    }
+    return true;
+  });
 
   return (
     <aside className="w-64 bg-gray-800 min-h-screen">
       <nav className="mt-8">
-        {menuItems.map((item) => {
+        {filteredMenuItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <Link

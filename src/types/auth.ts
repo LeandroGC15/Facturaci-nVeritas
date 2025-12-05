@@ -1,3 +1,5 @@
+import { Tenant } from './tenant';
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -12,10 +14,17 @@ export interface LoginResponse {
 }
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
   role: string;
+}
+
+export interface CreateUserRequest {
+  email: string;
+  password: string;
+  name: string;
+  role: 'admin' | 'manager' | 'user';
 }
 
 export interface AuthState {
