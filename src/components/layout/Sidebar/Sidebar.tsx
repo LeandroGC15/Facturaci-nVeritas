@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 
 interface MenuItem {
@@ -57,7 +57,6 @@ const menuItems: MenuItem[] = [
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const filteredMenuItems = menuItems.filter((item) => {
     // Si el item requiere admin y el usuario no es admin, no mostrarlo
