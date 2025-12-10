@@ -47,56 +47,96 @@ export const InvoiceTable: React.FC<InvoiceTableProps> = ({
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              ID
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Total
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Estado
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Fecha
-            </th>
-            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Acciones
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {invoices.map((invoice) => (
-            <tr key={invoice.id} className="hover:bg-gray-50">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                #{invoice.id}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {formatters.currency(invoice.total)}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {getStatusBadge(invoice.status)}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {formatters.dateTime(invoice.createdAt)}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onViewDetail(invoice.id)}
-                >
-                  Ver Detalle
-                </Button>
-              </td>
+    <>
+      {/* Vista de tabla para desktop */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ID
+              </th>
+              <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Total
+              </th>
+              <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Estado
+              </th>
+              <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Fecha
+              </th>
+              <th className="px-4 lg:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acciones
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {invoices.map((invoice) => (
+              <tr key={invoice.id} className="hover:bg-gray-50">
+                <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  #{invoice.id}
+                </td>
+                <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {formatters.currency(invoice.total)}
+                </td>
+                <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+                  {getStatusBadge(invoice.status)}
+                </td>
+                <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {formatters.dateTime(invoice.createdAt)}
+                </td>
+                <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onViewDetail(invoice.id)}
+                  >
+                    Ver Detalle
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Vista de cards para móviles */}
+      <div className="md:hidden space-y-4">
+        {invoices.map((invoice) => (
+          <div
+            key={invoice.id}
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4"
+          >
+            <div className="flex justify-between items-start mb-3">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Factura #{invoice.id}
+                </h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  {formatters.dateTime(invoice.createdAt)}
+                </p>
+              </div>
+              {getStatusBadge(invoice.status)}
+            </div>
+            <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+              <div>
+                <p className="text-sm text-gray-600">Total</p>
+                <p className="text-xl font-bold text-primary-600">
+                  {formatters.currency(invoice.total)}
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onViewDetail(invoice.id)}
+              >
+                Ver Detalle
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

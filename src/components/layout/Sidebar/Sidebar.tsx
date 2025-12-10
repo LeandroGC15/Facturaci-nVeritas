@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 
 interface MenuItem {
@@ -7,6 +7,11 @@ interface MenuItem {
   label: string;
   icon: React.ReactNode;
   adminOnly?: boolean;
+}
+
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const menuItems: MenuItem[] = [
@@ -49,9 +54,10 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export const Sidebar: React.FC = () => {
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const filteredMenuItems = menuItems.filter((item) => {
     // Si el item requiere admin y el usuario no es admin, no mostrarlo
@@ -64,28 +70,80 @@ export const Sidebar: React.FC = () => {
     return true;
   });
 
+  const handleLinkClick = () => {
+    // Cerrar sidebar en móviles al hacer click en un link
+    if (window.innerWidth < 1024) {
+      onClose();
+    }
+  };
+
   return (
-    <aside className="w-64 bg-gray-800 min-h-screen">
-      <nav className="mt-8">
-        {filteredMenuItems.map((item) => {
-          const isActive = location.pathname === item.path;
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center px-6 py-3 text-white transition-colors ${
-                isActive
-                  ? 'bg-primary-600 border-r-4 border-primary-400'
-                  : 'hover:bg-gray-700'
-              }`}
-            >
-              <span className="mr-3">{item.icon}</span>
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
-    </aside>
+    <>
+      {/* Sidebar Desktop - siempre visible en lg+ */}
+      <aside className="hidden lg:flex lg:w-64 lg:flex-shrink-0">
+        <div className="w-64 bg-gray-800 min-h-screen fixed lg:static inset-y-0 left-0 z-50">
+          <nav className="mt-8">
+            {filteredMenuItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center px-6 py-3 text-white transition-colors ${
+                    isActive
+                      ? 'bg-primary-600 border-r-4 border-primary-400'
+                      : 'hover:bg-gray-700'
+                  }`}
+                >
+                  <span className="mr-3">{item.icon}</span>
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+      </aside>
+
+      {/* Sidebar Mobile - drawer */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-800 transform transition-transform duration-300 ease-in-out lg:hidden ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+          <h2 className="text-xl font-bold text-white">Menú</h2>
+          <button
+            onClick={onClose}
+            className="text-white hover:text-gray-300 focus:outline-none"
+            aria-label="Cerrar menú"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav className="mt-4">
+          {filteredMenuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={handleLinkClick}
+                className={`flex items-center px-6 py-3 text-white transition-colors ${
+                  isActive
+                    ? 'bg-primary-600 border-r-4 border-primary-400'
+                    : 'hover:bg-gray-700'
+                }`}
+              >
+                <span className="mr-3">{item.icon}</span>
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </aside>
+    </>
   );
 };
 

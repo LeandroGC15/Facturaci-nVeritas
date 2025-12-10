@@ -29,17 +29,17 @@ export const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <Button onClick={() => navigate('/stock')}>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Dashboard</h1>
+        <Button onClick={() => navigate('/stock')} className="w-full sm:w-auto">
           Gestionar Stock
         </Button>
       </div>
 
       {/* Métricas principales */}
       {metrics && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <MetricsCard
             title="Total de Productos"
             value={metrics.totalProducts}

@@ -65,14 +65,21 @@ export const Stock: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Gestión de Stock</h1>
-        <div className="flex space-x-4">
-          <Button variant="outline" onClick={() => setShowUpload(!showUpload)}>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Gestión de Stock</h1>
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+          <Button 
+            variant="outline" 
+            onClick={() => setShowUpload(!showUpload)}
+            className="w-full sm:w-auto"
+          >
             {showUpload ? 'Ocultar' : 'Cargar'} Archivo
           </Button>
-          <Button onClick={() => { setShowForm(true); setShowUpload(false); setEditingItem(undefined); }}>
+          <Button 
+            onClick={() => { setShowForm(true); setShowUpload(false); setEditingItem(undefined); }}
+            className="w-full sm:w-auto"
+          >
             Nuevo Producto
           </Button>
         </div>

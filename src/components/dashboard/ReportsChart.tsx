@@ -25,7 +25,7 @@ export const ReportsChart: React.FC<ReportsChartProps> = ({
 }) => {
   if (type === 'line') {
     return (
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300} className="sm:h-[400px]">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -58,7 +58,7 @@ export const ReportsChart: React.FC<ReportsChartProps> = ({
   }
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="100%" height={300} className="sm:h-[400px]">
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis

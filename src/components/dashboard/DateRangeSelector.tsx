@@ -18,13 +18,14 @@ export const DateRangeSelector: React.FC<DateRangeSelectorProps> = ({
   ];
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-4">
       {periods.map((period) => (
         <Button
           key={period.value}
           variant={filters.period === period.value ? 'primary' : 'outline'}
           size="sm"
           onClick={() => onFilterChange({ ...filters, period: period.value })}
+          className="flex-1 sm:flex-initial"
         >
           {period.label}
         </Button>

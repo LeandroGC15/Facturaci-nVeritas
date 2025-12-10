@@ -58,7 +58,7 @@ export const StockForm: React.FC<StockFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
           label="Nombre del Producto"
           {...register('name')}

@@ -14,13 +14,13 @@ export const Card: React.FC<CardProps> = ({
   actions,
 }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>
+    <div className={`bg-white rounded-lg shadow-md p-4 sm:p-6 ${className}`}>
       {(title || actions) && (
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-4">
           {title && (
-            <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800">{title}</h3>
           )}
-          {actions && <div>{actions}</div>}
+          {actions && <div className="w-full sm:w-auto">{actions}</div>}
         </div>
       )}
       {children}
