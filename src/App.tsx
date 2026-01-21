@@ -9,6 +9,7 @@ import { Dashboard } from '@/pages/Dashboard';
 import { Stock } from '@/pages/Stock';
 import { Users } from '@/pages/Users';
 import { Invoices } from '@/pages/Invoices';
+import Suppliers from '@/pages/Suppliers';
 
 function App() {
   return (
@@ -54,6 +55,16 @@ function App() {
                   <PrivateRoute>
                     <Layout>
                       <Invoices />
+                    </Layout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/suppliers"
+                element={
+                  <PrivateRoute>
+                    <Layout>
+                      <Suppliers />
                     </Layout>
                   </PrivateRoute>
                 }

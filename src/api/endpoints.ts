@@ -28,5 +28,13 @@ export const endpoints = {
     get: (id: string) => `/invoices/${id}`,
     searchProducts: '/invoices/products/search',
   },
+  suppliers: {
+    create: '/suppliers',
+    list: '/suppliers',
+    update: (id: string) => `/suppliers/${id}`,
+    delete: (id: string) => `/suppliers/${id}`,
+  },
+  purchases: {
+    create: '/purchases',
+  },
 } as const;
-
